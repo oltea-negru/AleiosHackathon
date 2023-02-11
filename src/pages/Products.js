@@ -3,6 +3,8 @@
 import { useEffect, useState } from 'react'
 import { client, exploreProfiles, getProducts } from '../api/api'
 import Link from 'next/link'
+import { gql } from '@apollo/client'
+import {USER} from '../api/api'
 
           
 export default function Home() {
@@ -21,17 +23,28 @@ export default function Home() {
         let profileData = [];
         user.data.exploreProfiles.items.map(async profileInfo => {
           let idd = profileInfo.id;
-          const products = await client.query({
-            query: getProducts,
-            variables: {
-              idd,
-            },
-          }).then( product => {
-            console.log(">>>>",product);
-          })
+
+          let products = await client.query(getProducts,{
+                variables: {
+                  UserAddress: {
+                      idd
+                  },
+                } }
+            ).then( user => {
+          });
+          // const products = client.mutate({
+          //   mutation: gql(getProducts),
+          //   variables: {
+          //     address: {
+          //         idd
+          //     },
+          //   }
+          // }).then( product => {
+          //   console.log(">>>>",product);
+          // })
             // return result.data.nfts;
           // }
-            console.log(getProducts(profileInfo.id));
+            // console.log(getProducts(profileInfo.id));
             let profile = { ...profileInfo }
             let picture = profile.picture
             if (picture && picture.original && picture.original.url) {

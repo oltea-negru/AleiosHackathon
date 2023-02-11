@@ -1,47 +1,46 @@
-import React from "react";
-import { useEffect, useState } from "react";
-
+import { useEffect, useState } from 'react'
 import { useLazyQuery, useMutation } from "@apollo/client";
 // import { useAccount, useSigner, useDisconnect } from 'wagmi'
-import { router } from 'next/router'
+import { useRouter } from 'next/router'
 import { setTokens } from "./auth";
 import { Web3ReactProvider } from '@web3-react/core';
+import logo from "../assets/images/logo512.png";
 import { ethers,utils } from "ethers";
+
 
 import { ApolloClient, InMemoryCache } from '@apollo/client'
 import { gql } from '@apollo/client'
-
-import LandingPage from './landing'
 
 const APIURL = 'https://api-mumbai.lens.dev/';
 const apolloClient= new ApolloClient({
     uri: APIURL,
     cache: new InMemoryCache(),
     })
-
-export default function Profile(){
-    const [user, setUser]=useState({});
-    const [image, setImage]=useState("");
+    
+export default function Profile() {
 
     const [haveMetamask, sethaveMetamask] = useState(true);
     const [accountAddress, setAccountAddress] = useState('');
     const [accountBalance, setAccountBalance] = useState('');
     const [isConnected, setIsConnected] = useState(false);
     
+    
+
     const connectWallet = async () => {
+        const { ethereum } = window;
         try{
-            if (!window.ethereum) {
+            if (!ethereum) {
                 sethaveMetamask(false);
             }
-            const accounts = await window.ethereum.request({
+            
+            const accounts = await ethereum.request({
                 method: 'eth_requestAccounts',
             });
             const provider = new ethers.providers.Web3Provider(window.ethereum);
-            console.log("provider "+provider);
-
+            
             let balance = await provider.getBalance(accounts[0]);
             let bal = ethers.utils.formatEther(balance);
-            alert(accounts[0])
+            
             setAccountAddress(accounts[0]);
             setAccountBalance(bal);
             setIsConnected(true);
@@ -56,6 +55,7 @@ export default function Profile(){
         }
     `;
     const getChallenge = async (accountAddress, provider) => {
+        console.log("getChallenge "+accountAddress);
         const response = await apolloClient.query({
          query: gql(GET_CHALLENGE),
          variables: {
@@ -64,20 +64,13 @@ export default function Profile(){
            },
          },
        })
-       const chall= response['data']['challenge']['text']
-       console.log('Challenge: ',chall );
-       // const sign  = useSigner.signMessage(response)
+       console.log('Lens example data: ', response);
+    //    const sign  = useSigner.signMessage(response)
        
         const signer = provider.getSigner();
-        const hexMessage = utils.hexlify(utils.toUtf8Bytes(chall))
-        const signature = signer.signMessage(hexMessage).then(s=>console.log(s));
-        console.log("signature "+signature);
-        const success = await authenticate(accountAddress,signature).then
-          (()=>{
-            setTokens(response['data']['authenticate']['accessToken'],response['data']['authenticate']['refreshToken']);
-            alert("success")
-            router.push('/home');
-          })
+        const hexMessage = utils.hexlify(utils.toUtf8Bytes(response))
+        const signature = await signer.signMessage(hexMessage)
+       authenticate(accountAddress,signature);
     }
 
     const AUTHENTICATION = `
@@ -88,8 +81,6 @@ export default function Profile(){
             }
         }`;
     const authenticate = (address, signature) => {
-      console.log(address+" "+signature);
-      
         const ans = apolloClient.mutate({
             mutation: gql(AUTHENTICATION),
             variables: {
@@ -102,11 +93,39 @@ export default function Profile(){
         console.log("authenticate "+ans);
         return ans;
     }
-    
-    return (<div id="animatedBackground" className="h-screen w-full flex items-center  justify-center bg-one ">
-    <div className="bg-three h-[40%] font-extrabold justify-center flex items-center rounded-3xl hover:-translate-y-10 :hover transition duration-700 ease-out shadow-xl hover:shadow-zinc-100 w-[60%]">
-      <button onClick={connectWallet} className="text-four hover:text-four font-mono scale-[5]">WELCOME</button>
-  
-    </div>
-  </div>)
-};
+
+    return ( <div className="App">
+     <header className="App-header">
+       {haveMetamask ? (
+        <div className="App-header">
+          {isConnected ? (
+            <div className="card">
+              <div className="card-row">
+                <h3>Wallet Address:</h3>
+                <p>
+                  {accountAddress}
+                </p>
+              </div>
+              <div className="card-row">
+                <h3>Wallet Balance:</h3>
+                <p>{accountBalance}</p>
+              </div>
+            </div>
+          ) : (
+            <img src={logo.src} className="App-logo" alt="logo" />
+          )}
+          {isConnected ? (
+            <p className="info">🎉 Connected Successfully</p>
+          ) : (
+            <button className="btn" onClick={connectWallet}>
+              Connect
+            </button>
+          )}
+        </div>
+      ) : (
+        <p>Please Install MataMask</p>
+      )}
+    </header>
+  </div>
+);
+}

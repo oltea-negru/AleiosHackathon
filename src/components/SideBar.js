@@ -10,6 +10,7 @@ import KeyboardDoubleArrowRightOutlinedIcon from '@mui/icons-material/KeyboardDo
 import KeyboardDoubleArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardDoubleArrowLeftOutlined';
 import Home from '../pages/Home';
 import { useNavigate } from 'react-router-dom';
+import Profile from '../pages/Profile';
 function SideBar({ children })
 {
 
@@ -43,7 +44,7 @@ function SideBar({ children })
                     <MenuItem icon={<ShoppingCartOutlinedIcon />} onClick={() => navigate('/cart')}>Cart</MenuItem>
                     <MenuItem icon={<HelpOutlineOutlinedIcon />} onClick={() => navigate('/help')}>Help</MenuItem>
                 </Menu>
-            </Sidebar> : null}
+            </Sidebar> : <Profile/>}
             <div className='p-3 h-fit w-screen'>
                 {isLoggedIn === true ? <button className='focus:outline-none bg-orange-300 rounded-sm text-white' onClick={toggle}>
                     {toggled ? <KeyboardDoubleArrowRightOutlinedIcon /> : <KeyboardDoubleArrowLeftOutlinedIcon />}

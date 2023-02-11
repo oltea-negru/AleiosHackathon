@@ -32,9 +32,13 @@ query ExploreProfiles {
 }
 `
 
-export const getProducts = gql`
-query nfts($request: NFTsRequest!) {
-  nfts(request: $request) {
+export const getProducts = `
+mutation Nfts($request: NFTsRequest!) {
+  nfts(request: {
+    ownerAddress: $UserAddress,
+    limit: 10,
+    chainIds: [1]
+  }) {
     items {
       contractName
       contractAddress
@@ -56,7 +60,9 @@ query nfts($request: NFTsRequest!) {
       ercType
     }
     pageInfo {
-      ...CommonPaginatedResultInfoFields
+      prev
+      next
+      totalCount
     }
   }
 }`
