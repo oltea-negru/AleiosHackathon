@@ -9,11 +9,14 @@ import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import KeyboardDoubleArrowRightOutlinedIcon from '@mui/icons-material/KeyboardDoubleArrowRightOutlined';
 import KeyboardDoubleArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardDoubleArrowLeftOutlined';
 import Home from '../pages/Home';
+import { useNavigate } from 'react-router-dom';
 function SideBar({ children })
 {
 
     const { collapseSidebar, toggleSidebar, collapsed, toggled, broken, rtl } =
         useProSidebar();
+
+    const navigate = useNavigate()
 
     const toggle = () =>
     {
@@ -34,11 +37,11 @@ function SideBar({ children })
         <div className='h-screen flex '>
             {isLoggedIn === true ? <Sidebar>
                 <Menu iconShape="square">
-                    <MenuItem icon={<HomeOutlinedIcon />}>Home</MenuItem>
-                    <MenuItem icon={<CheckroomOutlinedIcon />}>Products</MenuItem>
-                    <MenuItem icon={<CategoryOutlinedIcon />}>Categories</MenuItem>
-                    <MenuItem icon={<ShoppingCartOutlinedIcon />}>Cart</MenuItem>
-                    <MenuItem icon={<HelpOutlineOutlinedIcon />}>Help</MenuItem>
+                    <MenuItem icon={<HomeOutlinedIcon />} onClick={() => navigate('/')}>Home</MenuItem>
+                    <MenuItem icon={<CheckroomOutlinedIcon />} onClick={() => navigate('/products')}>Products</MenuItem>
+                    <MenuItem icon={<CategoryOutlinedIcon />} onClick={() => navigate('/categories')}>Categories</MenuItem>
+                    <MenuItem icon={<ShoppingCartOutlinedIcon />} onClick={() => navigate('/cart')}>Cart</MenuItem>
+                    <MenuItem icon={<HelpOutlineOutlinedIcon />} onClick={() => navigate('/help')}>Help</MenuItem>
                 </Menu>
             </Sidebar> : null}
             <div className='p-3 h-fit w-screen'>
