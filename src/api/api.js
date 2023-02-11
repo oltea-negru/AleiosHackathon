@@ -32,14 +32,9 @@ query ExploreProfiles {
 }
 `
 
-export function getProducts(address="0x54be3a794282c030b15e43ae2bb182e14c409c5e"){
-  return gql`
-query Nfts($request: NFTsRequest!) {
-  nfts(request: {
-    ownerAddress: "`+address+`",
-    limit: 10,
-    chainIds: [1]
-  }) {
+export const getProducts = gql`
+query nfts($request: NFTsRequest!) {
+  nfts(request: $request) {
     items {
       contractName
       contractAddress
@@ -61,9 +56,7 @@ query Nfts($request: NFTsRequest!) {
       ercType
     }
     pageInfo {
-      prev
-      next
-      totalCount
+      ...CommonPaginatedResultInfoFields
     }
   }
-}`}
+}`
