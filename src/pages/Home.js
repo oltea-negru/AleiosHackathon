@@ -7,44 +7,15 @@ import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
+import SideBar from '../components/SideBar';
 
 function Home()
 {
-    const { collapseSidebar, toggleSidebar, collapsed, toggled, broken, rtl } =
-        useProSidebar();
 
-    const toggle = () =>
-    {
-        toggleSidebar();
-        if (toggled)
-        {
-            console.log(true);
-            collapseSidebar();
-        } else
-        {
-            console.log(false);
-            collapseSidebar();
-        }
-    };
 
     return (
-        <div className='h-screen flex'>
-            <Sidebar>
-                <Menu iconShape="square">
-                    <MenuItem icon={<HomeOutlinedIcon />}>Home</MenuItem>
-                    <MenuItem icon={<PeopleOutlinedIcon />}>Products</MenuItem>
-                    <MenuItem icon={<CategoryOutlinedIcon />}>Categories</MenuItem>
-                    <MenuItem icon={<HelpOutlineOutlinedIcon />}>Help</MenuItem>
-                </Menu>
-            </Sidebar>
-            <div className='flex-1 bg-gray-200'>
-                <div className='flex justify-between items-center bg-white p-4'>
-                    <div className='flex items-center'>
-                        <button onClick={toggle}>
-                            <MenuOutlinedIcon />
-                        </button>
-                    </div>
-                </div></div>
+        <div className=''>
+            <p className='text-3xl'>Home sssss</p>
         </div>
     )
 }
