@@ -24,11 +24,13 @@ export default function Home() {
         user.data.exploreProfiles.items.map(async profileInfo => {
           let idd = profileInfo.id;
 
-          let products = await client.query(getProducts,{
+          let products = await client.query({ query: getProducts ,
                 variables: {
-                  UserAddress: {
-                      idd
-                  },
+                  request: {
+                    ownerAddress: idd,
+                    limit: 10,
+                    chainIds: [1]
+                  }
                 } }
             ).then( user => {
           });
