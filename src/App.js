@@ -11,13 +11,14 @@ import Categories from './pages/Categories';
 import Food from './pages/Food';
 import Tools from './pages/Tools';
 import Clothes from './pages/Clothes';
+import Favorites from './pages/Favourites';
 
 
 function App()
 {
   return (
     <BrowserRouter>
-      <SideBar>
+      <SideBar className="font-poppins">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<Products />} />
@@ -26,6 +27,7 @@ function App()
           <Route path="/categories/food" element={<Food />} />
           <Route path="/categories/tools" element={<Tools />} />
           <Route path="/categories/clothes" element={<Clothes />} />
+          <Route path="/favourites" element={<Favorites />} />
           <Route path="/products" element={<Products />} />
         </Routes>
       </SideBar>

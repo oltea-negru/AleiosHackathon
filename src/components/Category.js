@@ -6,7 +6,7 @@ function Category(props)
     const navigate = useNavigate()
 
     return (
-        <div onClick={() => navigate('/categories' + props.path)} className='h-72 w-72 rounded-sm inline-block mr-10 mt-10 hover:h-80 hover:w-80 transform duration-300 ease-in-out hover:cursor-pointer'>
+        <div onClick={() => navigate('/categories' + props.path)} className='h-72 w-72 rounded-sm inline-block mr-10 mt-10 hover:scale-110 transform duration-300 ease-in-out hover:cursor-pointer'>
             <img className='w-full h-full object-cover' alt={props.name} src={props.image} />
 
             <div className='w-full absolute bottom-0 flex justify-center'>
