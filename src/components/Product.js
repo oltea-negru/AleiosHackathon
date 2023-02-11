@@ -15,7 +15,7 @@ function Product(props)
     console.log(openSnackbar);
 
     return (<>
-        <div className="h-56 w-56  text-justify inline-block ml-10 mt-5 hover:scale-110 transform duration-300 ease-in-out hover:cursor-pointer">
+        <div className="h-64 w-80  text-justify inline-block ml-10 my-7 hover:scale-110 transform duration-300 ease-in-out hover:cursor-pointer">
             <img
                 onClick={() => setHearted(!hearted)}
                 className="w-full h-full rounded-tr-md rounded-tl-md object-cover"
@@ -23,7 +23,7 @@ function Product(props)
                 src={props.image}
             />
 
-            <div className="w-full h-10  bottom-0 flex align-middle items-center justify-evenly bg-orange-100 rounded-br-md rounded-bl-md ">
+            <div className="w-full h-10  bottom-0 flex align-middle items-center justify-around bg-orange-100 rounded-br-md rounded-bl-md ">
                 {
                     hearted ? (
                         <FavoriteIcon
@@ -37,21 +37,23 @@ function Product(props)
                         />
                     )}
 
-                <p>{props.name}</p>
+                <p className='text-lg font-normal'>{props.name}</p>
 
-                <p className='font-bold'>{props.price}</p>
-                {
-                    inCart ? (
-                        <PaidIcon
-                            onClick={() => { setOpenSnackbar(false); setInCart(!inCart); }}
-                            className="text-green-700 scale-125"
-                        />
-                    ) : (
-                        <PaidOutlinedIcon
-                            onClick={() => { setOpenSnackbar(true); setInCart(!inCart); }}
-                            className="text-green-700 scale-125"
-                        />
-                    )}
+                <div className='flex flex-row'>
+                    <p className='font-bold mr-2'>{props.price}</p>
+                    {
+                        inCart ? (
+                            <PaidIcon
+                                onClick={() => { setOpenSnackbar(false); setInCart(!inCart); }}
+                                className="text-green-700 scale-125"
+                            />
+                        ) : (
+                            <PaidOutlinedIcon
+                                onClick={() => { setOpenSnackbar(true); setInCart(!inCart); }}
+                                className="text-green-700 scale-125"
+                            />
+                        )}
+                </div>
 
             </div>
 

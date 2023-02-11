@@ -94,7 +94,7 @@ export default function Home()
         }
     }
     return (
-        <div className='mt-10'>
+        <div className='my-10 bottom-10'>
 
             {dummyProducts.map(product => <Product key={product.id} name={product.name} category={product.category} price={product.price} image={product.image} />)}
 

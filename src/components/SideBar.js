@@ -39,7 +39,9 @@ function SideBar({ children })
     const isLoggedIn = false
     return (
         <div className='h-screen flex text-black z-50'>
-            {isLoggedIn === true ? <Sidebar className='bg-green-900'>
+            {isLoggedIn === true ? <Sidebar
+                style={{ backgroundColor: 'rgba(8,200,50,1)' }}
+            >
                 <Menu iconShape="square">
                     <MenuItem className='text-white font-bold hover:scale-110 hover:text-black mt-6' icon={<HomeOutlinedIcon className="text-black bg-white rounded-sm p-1 scale-150" />} onClick={() => { setSelection('Home'); navigate('/') }}>Home</MenuItem>
                     <MenuItem className='text-white font-bold hover:scale-110 hover:text-black mt-6' icon={<CheckroomOutlinedIcon className="text-black bg-white rounded-sm p-1 scale-150" />} onClick={() => { setSelection('Products'); navigate('/products') }}>Products</MenuItem>
@@ -50,7 +52,7 @@ function SideBar({ children })
                 </Menu>
             </Sidebar> : <Profile />
             }
-            <div className='p-3 h-fit w-screen overflow-hidden'>
+            <div className='p-3 w-screen'>
                 {isLoggedIn === true ? <div className='flex flex-row'><button className='focus:outline-none bg-orange-300 rounded-sm scale-150 ml-3 mt-5 text-white' onClick={toggle}>
                     {toggled ? <KeyboardDoubleArrowRightOutlinedIcon /> : <KeyboardDoubleArrowLeftOutlinedIcon />}
                 </button> <h1 className='text-6xl  text-[#aac6a4] absolute right-10'>{selection}</h1></div> : null}
