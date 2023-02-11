@@ -6,8 +6,12 @@ import
 import SideBar from './components/SideBar';
 import Home from './pages/Home';
 import Products from './pages/Products';
-import Cart from './pages/Cart';
+import Cart from './pages/Cart.js';
 import Categories from './pages/Categories';
+import Food from './pages/Food';
+import Tools from './pages/Tools';
+import Clothes from './pages/Clothes';
+
 
 function App()
 {
@@ -19,7 +23,10 @@ function App()
           <Route path="/products" element={<Products />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/categories" element={<Categories />} />
-          <Route path="/products" element={<Products/>} />
+          <Route path="/categories/food" element={<Food />} />
+          <Route path="/categories/tools" element={<Tools />} />
+          <Route path="/categories/clothes" element={<Clothes />} />
+          <Route path="/products" element={<Products />} />
         </Routes>
       </SideBar>
     </BrowserRouter >

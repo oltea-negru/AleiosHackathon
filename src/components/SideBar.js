@@ -34,8 +34,8 @@ function SideBar({ children })
 
     const isLoggedIn = true
     return (
-        <div className='h-screen flex '>
-            {isLoggedIn === true ? <Sidebar>
+        <div className='h-screen flex text-black'>
+            {isLoggedIn === true ? <Sidebar className='bg-green-900'>
                 <Menu iconShape="square">
                     <MenuItem icon={<HomeOutlinedIcon />} onClick={() => navigate('/')}>Home</MenuItem>
                     <MenuItem icon={<CheckroomOutlinedIcon />} onClick={() => navigate('/products')}>Products</MenuItem>
@@ -45,7 +45,7 @@ function SideBar({ children })
                 </Menu>
             </Sidebar> : null}
             <div className='p-3 h-fit w-screen'>
-                {isLoggedIn === true ? <button className='focus:outline-none' onClick={toggle}>
+                {isLoggedIn === true ? <button className='focus:outline-none bg-orange-300 rounded-sm text-white' onClick={toggle}>
                     {toggled ? <KeyboardDoubleArrowRightOutlinedIcon /> : <KeyboardDoubleArrowLeftOutlinedIcon />}
                 </button> : null}
                 {children}
