@@ -17,7 +17,7 @@ export default function Home()
         <div className='mt-5 bg-lockers bg-cover bg-center h-screen min-w-[300px] '>
             <div className='text-7xl text-center bg-white mt-10 py-3 px-3 rounded-md mx-5 my-3'>Welcome to your cheap shop!</div>
             <div className='flex flex-row'>
-                <p className='text-3xl'>one man's trash is another man's treasure to the next level </p>
+                <p className='text-3xl max-w-[300px]'>one man's trash is another m's treasure to the next level </p>
                 <img alt="lockers" src={Background} className='w-[50%] max-w-[800px] object-contain absolute right-5' />
             </div>
         </div>
