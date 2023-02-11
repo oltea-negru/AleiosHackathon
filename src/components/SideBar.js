@@ -11,6 +11,7 @@ import KeyboardDoubleArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardDou
 import Home from '../pages/Home';
 import { useNavigate } from 'react-router-dom';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import Profile from '../pages/Profile';
 function SideBar({ children })
 {
 
