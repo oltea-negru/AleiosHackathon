@@ -14,26 +14,26 @@ export default function Home()
 {
 
     return (
-        <div className='mt-10 bg-lockers bg-cover bg-center h-screen min-w-[300px] '>
+        <div className='mt-10 bg-lockers bg-cover bg-center h-fit min-h-screen min-w-[300px] '>
             <div className='flex flex-row '>
                 <i className='text-6xl max-w-[520px] leading-loose z-50 p-3 mt-5 '>One student's trash is another one's treasure </i>
-                <img alt="lockers" src={Background} className='w-[50%] max-w-[650px] object-contain absolute right-5' />
+                <img alt="lockers" src={Background} className='w-[50%] max-w-[650px] min-w-[600px] object-contain absolute right-5' />
             </div>
-            <div className='mt-16 flex flex-row justify-evenly text-center mb-10'>
-                <i className='bg-green-100 px-3 py-1 rounded-md mr-3 hover:-translate-y-5 duration-500 ease-in-out hover:shadow-lg shadow-black'>
+            <div className='mt-16 hover:cursor-pointer flex flex-row justify-evenly text-center mb-10'>
+                <i className='bg-[#94e0c7] px-3 py-1 rounded-md mr-3 hover:-translate-y-5 duration-500 ease-in-out hover:shadow-lg shadow-black'>
                     Are you moving out and want to get rid of some luggage?
                 </i >
-                <i className='bg-green-100 px-3 py-1 rounded-md mr-3 hover:-translate-y-5 duration-500 ease-in-out hover:shadow-lg shadow-black'>
+                <i className='bg-[#94e0c7] px-3 py-1 rounded-md mr-3 hover:-translate-y-5 duration-500 ease-in-out hover:shadow-lg shadow-black'>
                     Are you moving in and don't want to spend a fortune on new utensils?
                 </i >
-                <i className='bg-green-100 px-3 py-1 rounded-md mr-3 hover:-translate-y-5  duration-500 ease-in-out hover:shadow-lg shadow-black'>
+                <i className='bg-[#94e0c7] px-3 py-1 rounded-md mr-3 hover:-translate-y-5  duration-500 ease-in-out hover:shadow-lg shadow-black'>
                     Are you in the mood of thrift shopping random objects?
                 </i>
             </div>
             <p className='text-center text-2xl mb-10'>Join a network of students that want to help eachother in a sustainable way! Here is  how it works:</p>
             <div className='flex flex-row justify-around'>
-                <div className='flex flex-col w-[500px] border-green-400 rounded-md border-2  mb-10 '>
-                    <p className='bg-green-400 w-full rounded-b-none font-semibold px-4 py-2 text-lg text-white text-center'>If you want to give out/sell some of your belongings:</p>
+                <div className='flex flex-col max-w-[500px] w-[1/3] border-[#f0ab57] rounded-md border-2  mb-10 '>
+                    <p className='bg-[#f0ab57] w-full rounded-b-none font-semibold px-4 py-2 text-lg text-white text-center'>If you want to give out/sell some of your belongings:</p>
                     <div className='ml-3 mt-2 text-lg'>
                         <p>1. Create an account</p>
                         <p>2. Add your items</p>
@@ -42,8 +42,8 @@ export default function Home()
                     </div>
                 </div>
 
-                <div className='flex flex-col w-[500px] border-green-400 rounded-md border-2  mb-10 '>
-                    <p className='bg-green-400 w-full rounded-b-none font-semibold px-4 py-2 text-lg text-white text-center'>If you want to take/buy some of the items:</p>
+                <div className='flex flex-col w-[500px] border-[#f0ab57] rounded-md border-2  mb-10 '>
+                    <p className='bg-[#f0ab57] w-full rounded-b-none font-semibold px-4 py-2 text-lg text-white text-center'>If you want to take/buy some of the items:</p>
                     <div className='ml-3 mt-2 text-lg'>
                         <p>1. Create an account</p>
                         <p>2. Select your products</p>

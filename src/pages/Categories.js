@@ -24,10 +24,12 @@ function Categories()
         name: 'Tools',
         path: '/tools',
         image: Tools
-    }]
+    },
+
+    ]
 
     return (
-        <div className=''>{categories.map(e => <Category key={e.id} name={e.name} image={e.image} path={e.path} />)}</div>
+        <div className='h-screen grid place-items-center'>{categories.map(e => <Category key={e.id} name={e.name} image={e.image} path={e.path} />)}</div>
     )
 }
 
