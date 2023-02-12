@@ -62,8 +62,8 @@ function UserProfile()
         },
     ];
 
-    const [name, setName] = useState('John Doe')
-    const [wallet, setWallet] = useState('0$')
+    const address = sessionStorage.getItem('address');
+    const balance = sessionStorage.getItem('balance');
     const [numberOfProducts, setNumberOfProducts] = useState(dummyProducts.length)
 
     return (
@@ -73,12 +73,12 @@ function UserProfile()
 
                 <div className='flex flex-col ml-5'>
                     <div className='flex flex-row'>
-                        <h1 className='text-2xl font-bold'>Name:</h1>
-                        <h1 className='text-2xl font-bold ml-5'>{name}</h1>
+                        <h1 className='text-2xl font-bold'>Address:</h1>
+                        <h1 className='text-2xl font-bold ml-5'>{address}</h1>
                     </div>
                     <div className='flex flex-row'>
-                        <h1 className='text-2xl font-bold'>Money:</h1>
-                        <h1 className='text-2xl font-bold ml-5'>{wallet}</h1>
+                        <h1 className='text-2xl font-bold'>Balance:</h1>
+                        <h1 className='text-2xl font-bold ml-5'>{balance}</h1>
                     </div>
                     <div className='flex flex-row'>
                         <h1 className='text-2xl font-bold'>Number of products:</h1>

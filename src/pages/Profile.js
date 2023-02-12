@@ -10,8 +10,9 @@ import { ethers,utils } from "ethers";
 import Lock from '../artifacts/contracts/Lock.sol/Lock.json'
 import { ApolloClient, InMemoryCache } from '@apollo/client'
 import { gql } from '@apollo/client'
+import MetaMask from '../assets/images/MetaMask.png'
 
-const deployedAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+export const deployedAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
 
 
 export default function Profile()
@@ -32,33 +33,38 @@ export default function Profile()
     }
 
     const connectWallet = async () => {
-        try{
-            if (!window.ethereum) {
-                sethaveMetamask(false);
-            }
-            const accounts = requestAccount();
+      try{
+          if (!window.ethereum) {
+              sethaveMetamask(false);
+          }
+          const accounts = await window.ethereum.request({
+              method: 'eth_requestAccounts',
+          });
+          const provider = new ethers.providers.Web3Provider(window.ethereum);
+          console.log("provider "+provider);
 
-            const provider = new ethers.providers.Web3Provider(window.ethereum);
-            const contract = new ethers.Contract(deployedAddress, Lock.abi, provider);
-
-            let balance = await provider.getBalance(accounts[0]);
-            let bal = ethers.utils.formatEther(balance);
-            setAccountAddress(accounts[0]);
-            setAccountBalance(bal);
-            setIsConnected(true);
-            
-            console.log(balance)
-
-        } catch (error) {
-            setIsConnected(false);
-        }
-    };
+          let balance = await provider.getBalance(accounts[0]);
+          let bal = ethers.utils.formatEther(balance);
+          setAccountAddress(accounts[0]);
+          setAccountBalance(bal);
+          setIsConnected(true);
+          sessionStorage.setItem('address', accounts[0]);
+          sessionStorage.setItem('balance', bal);
+          sessionStorage.setItem('isConnected', true);
+          window.location.reload();
+      } catch (error) {
+          setIsConnected(false);
+          sessionStorage.removeItem('address');
+          sessionStorage.removeItem('balance');
+          sessionStorage.setItem('isConnected', false);
+      }
+  };
    
     return (
-    <div id="animatedBackground" className="w-full flex items-center  justify-center bg-one ">
-    <div className="bg-three h-[40%] font-extrabold justify-center flex items-center rounded hover:-translate-y-10 :hover transition duration-700 ease-out shadow-xl hover:shadow-zinc-100 w-[40%]">
-      <button onClick={connectWallet} className="text-four hover:text-four font-mono scale-[5]">WELCOME</button>
-
+      <div id="animatedBackground" className="w-full items-center  justify-center bg-one" >
+    <div marginTop="50px" className="bg-three h-[40%] font-extrabold justify-center flex items-center rounded-3xl hover:-translate-y-10 :hover transition duration-700 ease-out shadow-xl hover:shadow-zinc-100 w-[60%]">
+      <button onClick={connectWallet} className="text-four hover:text-four font-mono scale-[5]">Connect Wallet</button>
     </div>
-  </div>)
+  </div>
+    )
 };

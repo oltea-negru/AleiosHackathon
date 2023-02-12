@@ -21,14 +21,14 @@ import { useState } from 'react';
 
 function App()
 {
-  const [isConnected, setIsConnected] = useState(true);
+  var isConnected=sessionStorage.getItem("isConnected")==null?false:true;
 
   return (
     <BrowserRouter>
-      {isConnected==false ? <Home isLoggedIn={isConnected}/> : 
+      {isConnected==false ? <Home/> : 
       <SideBar isLoggedIn={isConnected}>
         <Routes>
-          <Route path="/" element={<Home isLoggedIn={isConnected}/>} />
+          <Route path="/" element={<Home/>} />
           <Route path="/products" element={<Products />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/add-product" element={<AddProduct />} />

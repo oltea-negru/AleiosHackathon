@@ -11,9 +11,9 @@ import SideBar from '../components/SideBar';
 import Background from '../assets/images/background.jpg'
 import Profile from './Profile';
 
-export default function Home({isLoggedIn=false})
+export default function Home()
 {
-
+    var isLoggedIn=sessionStorage.getItem("isConnected")==null?false:true;
     return (
 
         <div className='mt-10 bg-lockers bg-cover bg-center h-fit min-h-screen min-w-[300px] '>
