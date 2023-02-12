@@ -46,17 +46,31 @@ function Product(props)
 
                 <div className='flex flex-row'>
                     {
-                        inCart ? (
-                            <PaidIcon
-                                onClick={() => { setOpenSnackbar(false); setInCart(!inCart); }}
-                                className="text-green-700 scale-150"
-                            />
-                        ) : (
-                            <PaidOutlinedIcon
-                                onClick={() => { setOpenSnackbar(true); setInCart(!inCart); }}
-                                className="text-green-700 scale-150"
-                            />
-                        )}
+                        props.added ? ( <PaidOutlinedIcon
+                            onClick={() => { }} className="text-green-700 scale-150" />) : (
+                            inCart ? (
+                                <PaidIcon
+                                    onClick={() => { 
+                                        setOpenSnackbar(false); setInCart(!inCart);
+                                        window.location.reload();
+                                        // var items = sessionStorage.getItem("items")===null ? 0 : parseInt(sessionStorage.getItem("items"));
+                                        // sessionStorage.setItem("items",1);
+                                        sessionStorage.removeItem("item_"+sessionStorage.getItem("items")); 
+                                        sessionStorage.setItem("items", parseInt(sessionStorage.getItem("items"))-1)}}
+                                        className="text-green-700 scale-150"
+                                        />
+                                        ) : (
+                                            <PaidOutlinedIcon
+                                            onClick={() => { 
+                                                setOpenSnackbar(true); setInCart(!inCart); 
+                                                var items = parseInt(sessionStorage.getItem("items"))>=0 ? parseInt(sessionStorage.getItem("items")):0;
+                                                sessionStorage.setItem("items",items+1);
+                                                sessionStorage.setItem("item_"+items, props.name); 
+                                }}
+                                    className="text-green-700 scale-150"
+                                />
+                                )
+                            )}
                 </div>
 
             </div>

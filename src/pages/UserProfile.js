@@ -1,5 +1,5 @@
 import React from 'react'
-import Placeholder from '../assets/images/placeholder2.png'
+import Placeholder from '../assets/images/MetaMask.png'
 import ImageFood from '../assets/images/food.jpg'
 import ImageTools from '../assets/images/tools.jpg'
 import ImageClothes from '../assets/images/clothes.jpg'
@@ -109,6 +109,13 @@ function UserProfile()
                     })}
                 </div>
             </div >
+            <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>
+                Receive Text
+            </button>
+            <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>
+                Send Text
+            </button>
+            <input></input>
         </div >
     )
 }

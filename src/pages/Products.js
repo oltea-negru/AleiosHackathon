@@ -100,6 +100,8 @@ export default function Home()
     }, [searchWord])
         ;
 
+    var cart = [];
+
     return (
         <div className="my-10 bottom-10 h-screen">
             <div className="grid place-items-center">
@@ -121,6 +123,7 @@ export default function Home()
                     image={product.image}
                 />
             ))}
+            
         </div>
     );
 }
