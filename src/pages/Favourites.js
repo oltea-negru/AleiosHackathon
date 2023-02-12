@@ -16,7 +16,7 @@ function Favourites()
             { id: 5, favourite: false, price: '10$', name: 'product5', category: 'clothes', image: ImageClothes },
             { id: 6, favourite: false, price: 'FREE', name: 'product6', category: 'food', image: ImageFood }]
     return (
-        <div className='mt-5 h-screen'>{dummyProducts.filter(product => product.favourite === true).map(product => <Product key={product.id} name={product.name} category={product.category} price={product.price} image={product.image} />)}</div>
+        <div className='mt-5 h-screen'>{dummyProducts.filter(product => product.favourite === true).map(product => <Product key={product.id} name={product.name} category={product.category} price={product.price} image={product.image} isFavourite={true}/>)}</div>
     )
 }
 

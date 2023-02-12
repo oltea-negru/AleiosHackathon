@@ -22,8 +22,12 @@ function Product(props)
                 src={props.image}
             />
 
-            <div className='top-0 bg-white absolute right-0 rounded-bl-md p-2'>{
-                hearted ? (
+            <div className='top-0 bg-white absolute right-0 rounded-bl-md p-2'>
+                {props.isFavourite ? ( <FavoriteIcon
+                        onClick={() => { setOpenSnackbar2(false); setHearted(!hearted); }}
+                        className="text-red-700 "
+                    />) : (
+                hearted ? ( 
                     <FavoriteIcon
                         onClick={() => { setOpenSnackbar2(false); setHearted(!hearted); }}
                         className="text-red-700 "
@@ -33,7 +37,7 @@ function Product(props)
                         onClick={() => { setOpenSnackbar2(true); setHearted(!hearted); }}
                         className="text-red-700 "
                     />
-                )}
+                ))}
             </div>
 
 
@@ -46,13 +50,12 @@ function Product(props)
 
                 <div className='flex flex-row'>
                     {
-                        props.added ? ( <PaidOutlinedIcon
-                            onClick={() => { }} className="text-green-700 scale-150" />) : (
-                            inCart ? (
+                        props.added || inCart ? (
                                 <PaidIcon
                                     onClick={() => { 
                                         setOpenSnackbar(false); setInCart(!inCart);
-                                        window.location.reload();
+                                        if(props.added)
+                                            window.location.reload();
                                         // var items = sessionStorage.getItem("items")===null ? 0 : parseInt(sessionStorage.getItem("items"));
                                         // sessionStorage.setItem("items",1);
                                         sessionStorage.removeItem("item_"+sessionStorage.getItem("items")); 
@@ -70,7 +73,7 @@ function Product(props)
                                     className="text-green-700 scale-150"
                                 />
                                 )
-                            )}
+                            }
                 </div>
 
             </div>
