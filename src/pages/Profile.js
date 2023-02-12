@@ -27,7 +27,9 @@ export default function Profile()
     
 
     async function requestAccount(){
-      // await ethereum.request({ method: 'eth_requestAccounts' });
+      return await window.ethereum.request({
+        method: 'eth_requestAccounts',
+       });
     }
 
     const connectWallet = async () => {
@@ -35,9 +37,8 @@ export default function Profile()
             if (!window.ethereum) {
                 sethaveMetamask(false);
             }
-            const accounts = await window.ethereum.request({
-                method: 'eth_requestAccounts',
-            });
+            const accounts = requestAccount();
+            
             const provider = new ethers.providers.Web3Provider(window.ethereum);
             const contract = new ethers.Contract(deployedAddress, Lock.abi, provider);
 
