@@ -1,15 +1,17 @@
-import { useEffect, useState } from 'react'
+import React from "react";
+import { useEffect, useState } from "react";
+
 import { useLazyQuery, useMutation } from "@apollo/client";
 // import { useAccount, useSigner, useDisconnect } from 'wagmi'
-import { useRouter } from 'next/router'
-import { setTokens } from "./auth";
+import { router } from 'next/router'
+import { setTokens, authenticate } from "../api/auth";
 import { Web3ReactProvider } from '@web3-react/core';
-import logo from "../assets/images/logo512.png";
 import { ethers, utils } from "ethers";
-
 
 import { ApolloClient, InMemoryCache } from '@apollo/client'
 import { gql } from '@apollo/client'
+
+import LandingPage from '../api/landing'
 
 const APIURL = 'https://api-mumbai.lens.dev/';
 const apolloClient = new ApolloClient({
@@ -19,6 +21,8 @@ const apolloClient = new ApolloClient({
 
 export default function Profile()
 {
+  const [user, setUser] = useState({});
+  const [image, setImage] = useState("");
 
   const [haveMetamask, sethaveMetamask] = useState(true);
   const [accountAddress, setAccountAddress] = useState('');
@@ -27,22 +31,19 @@ export default function Profile()
 
   const connectWallet = async () =>
   {
-    const { ethereum } = window;
     try
     {
-      if (!ethereum)
+      if (!window.ethereum)
       {
         sethaveMetamask(false);
       }
-
-      const accounts = await ethereum.request({
+      const accounts = await window.ethereum.request({
         method: 'eth_requestAccounts',
       });
       const provider = new ethers.providers.Web3Provider(window.ethereum);
 
       let balance = await provider.getBalance(accounts[0]);
       let bal = ethers.utils.formatEther(balance);
-
       setAccountAddress(accounts[0]);
       setAccountBalance(bal);
       setIsConnected(true);
@@ -52,16 +53,13 @@ export default function Profile()
       setIsConnected(false);
     }
   };
-
   const GET_CHALLENGE = `
         query($request: ChallengeRequest!) {
             challenge(request: $request) { text }
         }
     `;
-
   const getChallenge = async (accountAddress, provider) =>
   {
-    console.log("getChallenge " + accountAddress);
     const response = await apolloClient.query({
       query: gql(GET_CHALLENGE),
       variables: {
@@ -70,69 +68,60 @@ export default function Profile()
         },
       },
     })
-    console.log('Lens example data: ', response);
-    //    const sign  = useSigner.signMessage(response)
+    const chall = response['data']['challenge']['text']
+    console.log('Challenge: ', chall);
+    // const sign  = useSigner.signMessage(response)
 
     const signer = provider.getSigner();
-    const hexMessage = utils.hexlify(utils.toUtf8Bytes(response))
-    const signature = await signer.signMessage(hexMessage)
-    authenticate(accountAddress, signature);
+    const hexMessage = utils.hexlify(utils.toUtf8Bytes(chall))
+    const signature = signer.signMessage(hexMessage).then(s =>
+    {
+      console.log(s)
+      console.log("signature " + s);
+      authenticate(accountAddress, s).then
+        (() =>
+        {
+          // setTokens(response['data']['authenticate']['accessToken'],response['data']['authenticate']['refreshToken']);
+          alert("success")
+          router.push('/home');
+        })
+    });
   }
 
-  const AUTHENTICATION = `
-        mutation($request: SignedAuthChallenge!) { 
-            authenticate(request: $request) {
+  const AUTHENTICATION = gql`
+        mutation Authenticate(
+          $address: EthereumAddress!
+          $signature: Signature!
+        ) {
+          authenticate(request: {
+            address: $address,
+            signature: $signature
+          }) {
             accessToken
             refreshToken
-            }
-        }`;
+          }
+        }
+      `
+  //todo change to signature
   const authenticate = (address, signature) =>
   {
+    console.log(address + " " + signature);
+
     const ans = apolloClient.mutate({
-      mutation: gql(AUTHENTICATION),
+      mutation: AUTHENTICATION,
       variables: {
-        request: {
-          address,
-          signature,
-        },
-      }
+        address,
+        signature,
+      },
     })
     console.log("authenticate " + ans);
     return ans;
   }
 
-  return (<div className="App h-screen">
-    <header className="App-header">
-      {haveMetamask ? (
-        <div className="App-header">
-          {isConnected ? (
-            <div className="card">
-              <div className="card-row">
-                <h3>Wallet Address:</h3>
-                <p>
-                  {accountAddress}
-                </p>
-              </div>
-              <div className="card-row">
-                <h3>Wallet Balance:</h3>
-                <p>{accountBalance}</p>
-              </div>
-            </div>
-          ) : (
-            <img src={logo.src} className="App-logo" alt="logo" />
-          )}
-          {isConnected ? (
-            <p className="info">🎉 Connected Successfully</p>
-          ) : (
-            <button className="btn" onClick={connectWallet}>
-              Connect
-            </button>
-          )}
-        </div>
-      ) : (
-        <p>Please Install MataMask</p>
-      )}
-    </header>
-  </div>
-  );
-}
+  return (<div id="animatedBackground" className="h-screen w-full flex items-center  justify-center bg-one ">
+    <div className="bg-three h-[40%] font-extrabold justify-center flex items-center rounded-3xl hover:-translate-y-10 :hover transition duration-700 ease-out shadow-xl hover:shadow-zinc-100 w-[60%]">
+      <button onClick={connectWallet} className="text-four hover:text-four font-mono scale-[5]">WELCOME</button>
+
+    </div>
+  </div>)
+};
