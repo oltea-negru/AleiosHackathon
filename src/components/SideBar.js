@@ -39,7 +39,7 @@ function SideBar({ children })
         }
     };
 
-    const isLoggedIn = false
+    const isLoggedIn = true
     return (
         <div className='h-fit flex text-black z-50'>
             {isLoggedIn === true ? <Sidebar
