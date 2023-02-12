@@ -6,6 +6,7 @@ import ImageClothes from '../assets/images/clothes.jpg'
 import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import Product from '../components/Product'
+import Profile from './Profile'
 
 
 // the profile page you made still exists, dont cry
@@ -88,7 +89,7 @@ function UserProfile()
 
                 </div></div>
             <div className='flex flex-col'>
-                <h1 className='text-2xl font-bold'>Your Items:</h1>
+                <h1 className='text-2xl font-bold'>Your Listed Items:</h1>
                 <div className=''>
                     {dummyProducts.map((product) =>
                     {
@@ -109,13 +110,6 @@ function UserProfile()
                     })}
                 </div>
             </div >
-            <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>
-                Receive Text
-            </button>
-            <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>
-                Send Text
-            </button>
-            <input></input>
         </div >
     )
 }
