@@ -9,14 +9,17 @@ import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import SideBar from '../components/SideBar';
 import Background from '../assets/images/background.jpg'
+import Profile from './Profile';
 
-export default function Home()
+export default function Home({isLoggedIn=false})
 {
 
     return (
+
         <div className='mt-10 bg-lockers bg-cover bg-center h-fit min-h-screen min-w-[300px] '>
             <div className='flex flex-row '>
                 <i className='text-6xl max-w-[520px] leading-loose z-50 p-3 mt-5 '>One student's trash is another one's treasure </i>
+                {isLoggedIn === false ? <Profile/>:null}
                 <img alt="lockers" src={Background} className='w-[50%] max-w-[650px] min-w-[600px] object-contain absolute right-5' />
             </div>
             <div className='mt-16 hover:cursor-pointer flex flex-row justify-evenly text-center mb-10'>

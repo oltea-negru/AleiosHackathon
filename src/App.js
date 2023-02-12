@@ -16,15 +16,19 @@ import Profile from './pages/Profile';
 import Favorites from './pages/Favourites';
 import AddProduct from './pages/AddProduct';
 import UserProfile from './pages/UserProfile';
+import { useState } from 'react';
 
 
 function App()
 {
+  const [isConnected, setIsConnected] = useState(true);
+
   return (
     <BrowserRouter>
-      <SideBar >
+      {isConnected==false ? <Home isLoggedIn={isConnected}/> : 
+      <SideBar isLoggedIn={isConnected}>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home isLoggedIn={isConnected}/>} />
           <Route path="/products" element={<Products />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/add-product" element={<AddProduct />} />
@@ -37,7 +41,7 @@ function App()
           <Route path="/help" element={<Help />} />
           <Route path="/products" element={<Products />} />
         </Routes>
-      </SideBar>
+      </SideBar>}
     </BrowserRouter >
   );
 }

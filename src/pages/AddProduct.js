@@ -3,6 +3,17 @@ import Placeholder from "../assets/images/placeholder.png";
 import { useState } from "react";
 import uuid4 from "uuid4";
 import { Snackbar } from "@mui/material";
+import { Web3Storage, File, getFilesFromPath } from 'web3.storage'
+
+function getAccessToken () {
+    return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDJlRmRmZjBmY0ZEZUIzQzRCMDY1NjlhMjRlOTJGOTBBMDcyNTk5MDYiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2NzYxNzQ4MzcyNTEsIm5hbWUiOiJBbGVpb3NIYWNrIn0.0M1Q3wiKjJ18Cw75O0VeOA9qsz3GkxHV30PHESsE7v8";
+}
+
+function makeStorageClient () {
+    return new Web3Storage({ token: getAccessToken() })
+}
+
+const storage = makeStorageClient()
 
 function AddProduct()
 {
@@ -30,10 +41,19 @@ function AddProduct()
 
         reader.readAsDataURL(selectedFile);
     }
+    async function store(image){
+        const finalContent = JSON.stringify(image);
+        const file = new File([finalContent], {
+            type: 'text/plain',
+        });
+        const cid = await storage.put([file]);
+
+    }
 
     // handles adding new product to the database?
     function addProduct()
     {
+        store(image);
         let data = {
             id: uuid4(),
             name: name,
