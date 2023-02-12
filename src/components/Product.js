@@ -23,7 +23,11 @@ function Product(props)
             />
 
             <div className='top-0 bg-white absolute right-0 rounded-bl-md p-2'>
-                {props.isFavourite || hearted ? ( 
+                {props.isFavourite ? ( <FavoriteIcon
+                        onClick={() => { setOpenSnackbar2(false); setHearted(!hearted); }}
+                        className="text-red-700 "
+                    />) : (
+                hearted ? ( 
                     <FavoriteIcon
                         onClick={() => { setOpenSnackbar2(false); setHearted(!hearted); }}
                         className="text-red-700 "

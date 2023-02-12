@@ -60,9 +60,16 @@ export default function Profile()
   };
    
     return (
-      <div id="animatedBackground" className="w-full items-center  justify-center bg-one" >
-    <div marginTop="50px" className="bg-three h-[40%] font-extrabold justify-center flex items-center rounded-3xl hover:-translate-y-10 :hover transition duration-700 ease-out shadow-xl hover:shadow-zinc-100 w-[60%]">
-      <button onClick={connectWallet} className="text-four hover:text-four font-mono scale-[5]">Connect Wallet</button>
+      <div id="animatedBackground" className="w-full items-center  mt-[10%] z-50 justify-center bg-one" >
+    <div marginTop="50px" className="bg-three h-[45%] font-extrabold justify-center flex items-center rounded-3xl hover:-translate-y-10 :hover transition duration-700 ease-out shadow-xl hover:shadow-zinc-100 w-[60%]">
+      <ul>
+        <li>
+        <button onClick={connectWallet} className="text-four hover:text-four font-mono scale-[5]">Connect Wallet</button>          
+        </li>
+        <li>
+        <img src={MetaMask} className="w-20 mt-3 h-20" />          
+        </li>
+      </ul>
     </div>
   </div>
     )
